@@ -1,7 +1,14 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Home } from "./page/Home";
+import { Login } from "./page/Login";
+
 export function App() {
   return (
-    <>
-      <h1 className="text-3xl font-bold">Hola Mundo</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
