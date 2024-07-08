@@ -1,9 +1,10 @@
 import "./login.css";
 import { useForm } from "react-hook-form";
 import { login } from "../../api/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Login() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -12,11 +13,8 @@ export function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await login(data);
-      console.log("Login successful", response);
-      document.cookie = `access_token=${response.token}; Max-Age=${
-        60 * 60
-      }; Secure; SameSite=Strict`;
+      await login(data);
+      navigate("/admin");
     } catch (error) {
       console.error("Login Error:", error);
     }
