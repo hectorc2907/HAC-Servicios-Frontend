@@ -13,3 +13,15 @@ export const login = async (data) => {
     throw error.response?.data || error.message;
   }
 };
+
+export const logout = async () => {
+  try {
+    const response = await axios.post(`${backend}/logout`, null, {
+      withCredentials: true,
+    });
+    console.log("Logout Response:", response.data);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};

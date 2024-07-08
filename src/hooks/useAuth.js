@@ -21,5 +21,5 @@ export const useAuth = () => {
     checkAuth();
   }, []);
 
-  return { isAuthenticated, loading };
+  return { isAuthenticated, setIsAuthenticated, loading };
 };
