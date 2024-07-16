@@ -4,6 +4,7 @@ import HomePage from "./page/HomePage";
 import RegisterPage from "./page/RegisterPage";
 import LoginPage from "./page/LoginPage";
 import AdminMainPage from "./page/admin/AdminMainPage";
+import ProtectedRoute from "./components/ProtectedRoutes";
 
 export function App() {
   return (
@@ -14,7 +15,9 @@ export function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/admin" element={<AdminMainPage />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/admin" element={<AdminMainPage />} />
+            </Route>
           </Routes>
         </main>
       </BrowserRouter>
