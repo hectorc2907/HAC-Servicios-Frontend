@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function LoginPage() {
   const {
@@ -7,11 +9,17 @@ function LoginPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signin, errors: loginErrors } = useAuth();
+  const { signin, errors: loginErrors, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (values) => {
     signin(values);
   });
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/admin");
+  });
+
   return (
     <div className="flex h-[calc(100vh-100px)] items-center justify-center">
       <div className="bg-slate-100 max-w-md w-full p-10 rounded-md">
