@@ -5,6 +5,7 @@ import {
   registerRequest,
   verifyTokenRequest,
 } from "../api/auth";
+import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
@@ -44,7 +45,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    logoutRequest();
+    await logoutRequest();
+    Cookies.remove("token");
     setIsAuthenticated(false);
     setUser(null);
   };
