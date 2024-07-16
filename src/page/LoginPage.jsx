@@ -7,10 +7,10 @@ function LoginPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { errors: loginErrors } = useAuth();
+  const { signin, errors: loginErrors } = useAuth();
 
   const onSubmit = handleSubmit(async (values) => {
-    console.log(values);
+    signin(values);
   });
   return (
     <div className="flex h-[calc(100vh-100px)] items-center justify-center">
