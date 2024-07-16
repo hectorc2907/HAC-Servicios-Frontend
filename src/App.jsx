@@ -7,10 +7,12 @@ export function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<RegisterPage />} />
-        </Routes>
+        <main className="container mx-auto px-10">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Routes>
+        </main>
       </BrowserRouter>
     </AuthProvider>
   );
