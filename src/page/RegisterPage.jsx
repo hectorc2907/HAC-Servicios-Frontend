@@ -7,7 +7,7 @@ function RegisterPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signup } = useAuth();
+  const { signup, errors: registerErrors } = useAuth();
 
   const onSubmit = handleSubmit(async (values) => {
     signup(values);
@@ -51,6 +51,11 @@ function RegisterPage() {
             Registrarse
           </button>
         </form>
+        {registerErrors.map((errors, i) => (
+          <div className="bg-red-500 p-2 text-white text-center my-2 rounded-md" key={i}>
+            {errors}
+          </div>
+        ))}
       </div>
     </div>
   );
