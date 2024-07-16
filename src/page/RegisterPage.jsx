@@ -1,7 +1,11 @@
 import { useForm } from "react-hook-form";
 
 function RegisterPage() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = handleSubmit(async (values) => {
     console.log(values);
@@ -17,18 +21,27 @@ function RegisterPage() {
             {...register("username", { required: true })}
             placeholder="Username"
           />
+          {errors.username && (
+            <p className="text-red-500">El Username es obligatorio</p>
+          )}
           <input
             type="email"
             className="w-full px-4 py-2 rounded-lg my-2"
             {...register("email", { required: true })}
             placeholder="Email"
           />
+          {errors.email && (
+            <p className="text-red-500">El Email es obligatorio</p>
+          )}
           <input
             type="password"
             className="w-full px-4 py-2 rounded-lg my-2"
             {...register("password", { required: true })}
             placeholder="Password"
           />
+          {errors.password && (
+            <p className="text-red-500">El Passowrd es obligatorio</p>
+          )}
           <button
             type="submit"
             className="bg-green-500 text-white px-4 py-2 rounded-md my-2"
