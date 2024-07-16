@@ -26,7 +26,6 @@ export const AuthProvider = ({ children }) => {
   const signin = async (user) => {
     try {
       const res = await loginRequest(user);
-      console.log(res);
       setUser(res.data);
     } catch (error) {
       if (Array.isArray(error.response.data)) {
