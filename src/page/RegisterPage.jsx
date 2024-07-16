@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useAuth } from "../context/AuthContext";
 
 function RegisterPage() {
   const {
@@ -6,9 +7,10 @@ function RegisterPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { signup } = useAuth();
 
   const onSubmit = handleSubmit(async (values) => {
-    console.log(values);
+    signup(values);
   });
   return (
     <div className="flex h-[calc(100vh-100px)] items-center justify-center">
