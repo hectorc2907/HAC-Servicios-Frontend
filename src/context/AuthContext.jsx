@@ -1,5 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { loginRequest, registerRequest, verifyTokenRequest } from "../api/auth";
+import {
+  loginRequest,
+  logoutRequest,
+  registerRequest,
+  verifyTokenRequest,
+} from "../api/auth";
 
 export const AuthContext = createContext();
 
@@ -38,6 +43,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logout = async () => {
+    logoutRequest();
+    setIsAuthenticated(false);
+    setUser(null);
+  };
+
   useEffect(() => {
     async function checkLogin() {
       try {
@@ -61,7 +72,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signup, signin, loading, user, isAuthenticated, errors }}
+      value={{ signup, signin, logout, loading, user, isAuthenticated, errors }}
     >
       {children}
     </AuthContext.Provider>
