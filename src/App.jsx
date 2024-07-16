@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import Navbar from "./components/Navbar";
 import HomePage from "./page/HomePage";
 import RegisterPage from "./page/RegisterPage";
 import LoginPage from "./page/LoginPage";
@@ -11,6 +12,7 @@ export function App() {
     <AuthProvider>
       <BrowserRouter>
         <main className="container mx-auto px-10">
+          <Navbar />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<RegisterPage />} />
