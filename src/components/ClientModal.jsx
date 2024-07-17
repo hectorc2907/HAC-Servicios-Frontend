@@ -23,9 +23,9 @@ function ClientModal({ isOpen, onClose, client }) {
   const onSubmit = handleSubmit(async (data) => {
     data.phoneNumber = Number(data.phoneNumber);
     if (client) {
-      updateClient(client._id, data);
+      await updateClient(client._id, data);
     } else {
-      createClient(data);
+      await createClient(data);
       setValue("firstName", "");
       setValue("lastName", "");
       setValue("phoneNumber", "");

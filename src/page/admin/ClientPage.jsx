@@ -3,11 +3,12 @@ import { useService } from "../../context/ServiceContext";
 import ClientCard from "../../components/ClientCard";
 import { FiPlusCircle } from "react-icons/fi";
 import ClientModal from "../../components/ClientModal";
+import { MoonLoader } from "react-spinners";
 
 function ClientPage() {
   const [isModelOpen, setIsModalOpen] = useState(false);
   const [selectedClient, setSelectedClient] = useState(null);
-  const { clients, getClients } = useService();
+  const { clients, getClients, loading } = useService();
 
   useEffect(() => {
     getClients();
@@ -24,9 +25,9 @@ function ClientPage() {
     openModal();
   };
 
-  const handleModalClose = () => {
-    getClients();
+  const handleModalClose = async () => {
     closeModal();
+    await getClients();
   };
 
   return (
@@ -41,7 +42,11 @@ function ClientPage() {
           <p>Agregar</p>
         </button>
       </div>
-      {clients.length === 0 ? (
+      {loading ? (
+        <div className="flex h-[calc(100vh-300px)] items-center justify-center">
+          <MoonLoader color="#0d16fc" />
+        </div>
+      ) : clients.length === 0 ? (
         <h1>No hay clientes</h1>
       ) : (
         <>

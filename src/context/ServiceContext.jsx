@@ -19,13 +19,17 @@ export const useService = () => {
 
 export function ServiceProvider({ children }) {
   const [clients, setClients] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getClients = async () => {
+    setLoading(true);
     try {
       const res = await getClientsRequest();
       setClients(res.data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,6 +72,7 @@ export function ServiceProvider({ children }) {
         createClient,
         updateClient,
         deleteClient,
+        loading,
       }}
     >
       {children}
