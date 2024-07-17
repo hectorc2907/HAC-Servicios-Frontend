@@ -2,7 +2,7 @@ import { FaPhoneVolume } from "react-icons/fa6";
 import { GrUpdate } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 
-function ClientCard({ client }) {
+function ClientCard({ client, onUpdate }) {
   return (
     <div className="bg-slate-200 my-2 rounded-lg">
       <div className="bg-slate-300 rounded-t-lg">
@@ -17,7 +17,10 @@ function ClientCard({ client }) {
           <FaPhoneVolume className="text-2xl" />
           <p>Llamar</p>
         </button>
-        <button className="flex flex-col items-center">
+        <button
+          className="flex flex-col items-center"
+          onClick={() => onUpdate(client)}
+        >
           <GrUpdate className="text-2xl" />
           <p>Actualizar</p>
         </button>

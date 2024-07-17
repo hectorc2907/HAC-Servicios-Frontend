@@ -44,7 +44,7 @@ export function ServiceProvider({ children }) {
 
   const updateClient = async (id, client) => {
     try {
-      await updateClient(id, client);
+      await updateClientRequest(id, client);
     } catch (error) {
       console.error(error);
     }

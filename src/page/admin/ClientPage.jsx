@@ -6,14 +6,28 @@ import ClientModal from "../../components/ClientModal";
 
 function ClientPage() {
   const [isModelOpen, setIsModalOpen] = useState(false);
+  const [selectedClient, setSelectedClient] = useState(null);
   const { clients, getClients } = useService();
 
   useEffect(() => {
     getClients();
-  }, [getClients]);
+  }, []);
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedClient(null);
+  };
+
+  const handleUpdate = (client) => {
+    setSelectedClient(client);
+    openModal();
+  };
+
+  const handleModalClose = () => {
+    getClients();
+    closeModal();
+  };
 
   if (clients.length === 0) return <h1>No hay clientes</h1>;
   return (
@@ -29,9 +43,13 @@ function ClientPage() {
         </button>
       </div>
       {clients.map((client) => (
-        <ClientCard client={client} key={client._id} />
+        <ClientCard client={client} key={client._id} onUpdate={handleUpdate} />
       ))}
-      <ClientModal isOpen={isModelOpen} onClose={closeModal} />
+      <ClientModal
+        isOpen={isModelOpen}
+        onClose={handleModalClose}
+        client={selectedClient}
+      />
     </div>
   );
 }

@@ -1,24 +1,45 @@
 import { useForm } from "react-hook-form";
 import { useService } from "../context/ServiceContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-function ClientModal({ isOpen, onClose }) {
+function ClientModal({ isOpen, onClose, client }) {
   const { register, handleSubmit, setValue } = useForm();
-  const { createClient } = useService();
+  const { createClient, updateClient } = useService();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (client) {
+      setValue("firstName", client.firstName);
+      setValue("lastName", client.lastName);
+      setValue("phoneNumber", client.phoneNumber);
+      setValue("address", client.address);
+    } else {
+      setValue("firstName", "");
+      setValue("lastName", "");
+      setValue("phoneNumber", "");
+      setValue("address", "");
+    }
+  }, [client]);
 
   const onSubmit = handleSubmit((data) => {
     data.phoneNumber = Number(data.phoneNumber);
-    createClient(data);
-    setValue("firstName", "");
-    setValue("lastName", "");
-    setValue("phoneNumber", "");
-    setValue("address", "");
+    if (client) {
+      updateClient(client._id, data);
+      navigate("/client");
+    } else {
+      createClient(data);
+      navigate("/client");
+    }
     onClose();
   });
   if (!isOpen) return null;
   return (
     <div className="px-2 fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
       <div className="bg-slate-100 p-6 rounded-lg shadow-lg">
-        <h1 className="text-center text-2xl mb-2">Cliente Nuevo</h1>
+        <h1 className="text-center text-2xl mb-2">
+          {client ? "Actualizar Cliente" : "Cliente Nuevo"}
+        </h1>
         <form onSubmit={onSubmit}>
           <label htmlFor="firstName">Nombre</label>
           <input
