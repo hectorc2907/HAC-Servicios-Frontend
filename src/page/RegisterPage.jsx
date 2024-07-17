@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function RegisterPage() {
   const {
@@ -23,7 +23,7 @@ function RegisterPage() {
   return (
     <div className="flex h-[calc(100vh-100px)] items-center justify-center">
       <div className="bg-slate-100 max-w-md w-full p-10 rounded-md">
-        <h1 className="text-2xl font-bold my-2">Registro</h1>
+        <h1 className="text-2xl font-bold my-2 text-center">Registro</h1>
         <form onSubmit={onSubmit}>
           <input
             type="text"
@@ -52,13 +52,21 @@ function RegisterPage() {
           {errors.password && (
             <p className="text-red-500">El Passowrd es obligatorio</p>
           )}
-          <button
-            type="submit"
-            className="bg-green-500 text-white px-4 py-2 rounded-md my-2"
-          >
-            Registrarse
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="bg-green-500 text-white px-4 py-2 rounded-md my-2"
+            >
+              Registrarse
+            </button>
+          </div>
         </form>
+        <p className="flex gap-x-2 justify-between">
+          ¿Ya tienes una cuenta?
+          <Link to="/login" className="text-sky-500">
+            Login!
+          </Link>
+        </p>
         {registerErrors.map((errors, i) => (
           <div
             className="bg-red-500 p-2 text-white text-center my-2 rounded-md"

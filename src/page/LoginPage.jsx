@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 function LoginPage() {
@@ -52,6 +52,10 @@ function LoginPage() {
             </button>
           </div>
         </form>
+        <p className="flex gap-x-2 justify-between">
+          ¿No tienes una cuenta?
+          <Link to="/register" className="text-sky-500">Registrate!</Link>
+        </p>
         {loginErrors.map((errors, i) => (
           <div
             className="bg-red-500 p-2 text-white text-center my-2 rounded-md"
