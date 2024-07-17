@@ -6,6 +6,7 @@ import {
   verifyTokenRequest,
 } from "../api/auth";
 import Cookies from "js-cookie";
+import { MoonLoader } from "react-spinners";
 
 export const AuthContext = createContext();
 
@@ -71,6 +72,14 @@ export const AuthProvider = ({ children }) => {
     }
     checkLogin();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex h-[calc(100vh-100px)] items-center justify-center">
+        <MoonLoader color="#0d16fc" />
+      </div>
+    );
+  }
 
   return (
     <AuthContext.Provider
