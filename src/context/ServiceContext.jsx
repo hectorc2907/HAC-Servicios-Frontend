@@ -42,9 +42,17 @@ export function ServiceProvider({ children }) {
     await createClientRequest(client);
   };
 
+  const updateClient = async (id, client) => {
+    try {
+      await updateClient(id, client);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ServiceContext.Provider
-      value={{ clients, getClients, getClient, createClient }}
+      value={{ clients, getClients, getClient, createClient, updateClient }}
     >
       {children}
     </ServiceContext.Provider>
