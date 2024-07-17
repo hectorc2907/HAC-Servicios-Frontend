@@ -7,6 +7,7 @@ import LoginPage from "./page/LoginPage";
 import AdminMainPage from "./page/admin/AdminMainPage";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import ClientPage from "./page/admin/ClientPage";
+import { ServiceProvider } from "./context/ServiceContext";
 
 export function App() {
   return (
@@ -19,8 +20,10 @@ export function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="/admin" element={<AdminMainPage />} />
-              <Route path="/client" element={<ClientPage />} />
+              <ServiceProvider>
+                <Route path="/admin" element={<AdminMainPage />} />
+                <Route path="/client" element={<ClientPage />} />
+              </ServiceProvider>
             </Route>
           </Routes>
         </main>
