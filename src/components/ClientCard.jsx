@@ -2,15 +2,21 @@ import { FaPhoneVolume } from "react-icons/fa6";
 import { GrUpdate } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 import { useService } from "../context/ServiceContext";
-import { useNavigate } from "react-router-dom";
 
 function ClientCard({ client, onUpdate }) {
-  const navigate = useNavigate();
   const { getClients, deleteClient } = useService();
 
   const handleDelete = async (id) => {
     await deleteClient(id);
-    getClients();
+    await getClients();
+  };
+
+  const handleCall = () => {
+    if (client.phoneNumber) {
+      window.location.href = `tel:${client.phoneNumber}`;
+    } else {
+      console.error("No valido");
+    }
   };
   return (
     <div className="bg-slate-200 my-2 rounded-lg">
@@ -22,7 +28,7 @@ function ClientCard({ client, onUpdate }) {
         <p className="text-center">{client.address}</p>
       </div>
       <div className="flex justify-around px-4 py-6">
-        <button className="flex flex-col items-center">
+        <button className="flex flex-col items-center" onClick={handleCall}>
           <FaPhoneVolume className="text-2xl" />
           <p>Llamar</p>
         </button>
