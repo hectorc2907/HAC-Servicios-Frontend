@@ -6,16 +6,16 @@ import ClientModal from "../../components/ClientModal";
 
 function ClientPage() {
   const [isModelOpen, setIsModalOpen] = useState(false);
-  const { client, getClients } = useService();
+  const { clients, getClients } = useService();
 
   useEffect(() => {
     getClients();
-  }, []);
+  }, [getClients]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  if (client.length === 0) return <h1>No hay clientes</h1>;
+  if (clients.length === 0) return <h1>No hay clientes</h1>;
   return (
     <div>
       <h1 className="text-center text-3xl">Clientes</h1>
@@ -28,8 +28,8 @@ function ClientPage() {
           <p>Agregar</p>
         </button>
       </div>
-      {client.map((clients) => (
-        <ClientCard clients={clients} key={client._id} />
+      {clients.map((client) => (
+        <ClientCard client={client} key={client._id} />
       ))}
       <ClientModal isOpen={isModelOpen} onClose={closeModal} />
     </div>

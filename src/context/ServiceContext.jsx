@@ -18,19 +18,23 @@ export const useService = () => {
 };
 
 export function ServiceProvider({ children }) {
-  const [client, setClient] = useState([]);
+  const [clients, setClients] = useState([]);
 
   const getClients = async () => {
     try {
       const res = await getClientsRequest();
-      setClient(res.data);
+      setClients(res.data);
     } catch (error) {
       console.error(error);
     }
   };
 
+  const createClient = async (client) => {
+    await createClientRequest(client);
+  };
+
   return (
-    <ServiceContext.Provider value={{ client, getClients }}>
+    <ServiceContext.Provider value={{ clients, getClients, createClient }}>
       {children}
     </ServiceContext.Provider>
   );
