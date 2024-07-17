@@ -1,8 +1,17 @@
 import { FaPhoneVolume } from "react-icons/fa6";
 import { GrUpdate } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
+import { useService } from "../context/ServiceContext";
+import { useNavigate } from "react-router-dom";
 
 function ClientCard({ client, onUpdate }) {
+  const navigate = useNavigate();
+  const { getClients, deleteClient } = useService();
+
+  const handleDelete = async (id) => {
+    await deleteClient(id);
+    getClients();
+  };
   return (
     <div className="bg-slate-200 my-2 rounded-lg">
       <div className="bg-slate-300 rounded-t-lg">
@@ -24,7 +33,10 @@ function ClientCard({ client, onUpdate }) {
           <GrUpdate className="text-2xl" />
           <p>Actualizar</p>
         </button>
-        <button className="flex flex-col items-center">
+        <button
+          className="flex flex-col items-center"
+          onClick={() => handleDelete(client._id)}
+        >
           <MdDelete className="text-2xl" />
           <p>Borrar</p>
         </button>

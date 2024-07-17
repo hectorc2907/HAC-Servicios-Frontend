@@ -1,12 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useService } from "../context/ServiceContext";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 function ClientModal({ isOpen, onClose, client }) {
   const { register, handleSubmit, setValue } = useForm();
-  const { createClient, updateClient } = useService();
-  const navigate = useNavigate();
+  const { getClients, createClient, updateClient } = useService();
 
   useEffect(() => {
     if (client) {
@@ -22,15 +20,18 @@ function ClientModal({ isOpen, onClose, client }) {
     }
   }, [client]);
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     data.phoneNumber = Number(data.phoneNumber);
     if (client) {
       updateClient(client._id, data);
-      navigate("/client");
     } else {
       createClient(data);
-      navigate("/client");
+      setValue("firstName", "");
+      setValue("lastName", "");
+      setValue("phoneNumber", "");
+      setValue("address", "");
     }
+    await getClients();
     onClose();
   });
   if (!isOpen) return null;

@@ -29,7 +29,6 @@ function ClientPage() {
     closeModal();
   };
 
-  if (clients.length === 0) return <h1>No hay clientes</h1>;
   return (
     <div>
       <h1 className="text-center text-3xl">Clientes</h1>
@@ -42,9 +41,19 @@ function ClientPage() {
           <p>Agregar</p>
         </button>
       </div>
-      {clients.map((client) => (
-        <ClientCard client={client} key={client._id} onUpdate={handleUpdate} />
-      ))}
+      {clients.length === 0 ? (
+        <h1>No hay clientes</h1>
+      ) : (
+        <>
+          {clients.map((client) => (
+            <ClientCard
+              client={client}
+              key={client._id}
+              onUpdate={handleUpdate}
+            />
+          ))}
+        </>
+      )}
       <ClientModal
         isOpen={isModelOpen}
         onClose={handleModalClose}
