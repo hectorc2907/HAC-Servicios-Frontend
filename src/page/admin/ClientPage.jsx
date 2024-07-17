@@ -43,11 +43,13 @@ function ClientPage() {
         </button>
       </div>
       {loading ? (
-        <div className="flex h-[calc(100vh-300px)] items-center justify-center">
+        <div className="flex h-[calc(100vh-400px)] items-center justify-center">
           <MoonLoader color="#0d16fc" />
         </div>
       ) : clients.length === 0 ? (
-        <h1>No hay clientes</h1>
+        <h1 className="flex h-[calc(100vh-400px)] items-center justify-center text-2xl">
+          No hay clientes
+        </h1>
       ) : (
         <>
           {clients.map((client) => (
