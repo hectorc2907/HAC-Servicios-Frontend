@@ -6,6 +6,7 @@ import RegisterPage from "./page/RegisterPage";
 import LoginPage from "./page/LoginPage";
 import AdminMainPage from "./page/admin/AdminMainPage";
 import ProtectedRoute from "./components/ProtectedRoutes";
+import ClientPage from "./page/admin/ClientPage";
 
 export function App() {
   return (
@@ -19,6 +20,7 @@ export function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/admin" element={<AdminMainPage />} />
+              <Route path="/client" element={<ClientPage />} />
             </Route>
           </Routes>
         </main>
