@@ -50,9 +50,25 @@ export function ServiceProvider({ children }) {
     }
   };
 
+  const deleteClient = async (id) => {
+    try {
+      const res = await deleteClientRequest(id);
+      if (res.status === 204) setClients(clients);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ServiceContext.Provider
-      value={{ clients, getClients, getClient, createClient, updateClient }}
+      value={{
+        clients,
+        getClients,
+        getClient,
+        createClient,
+        updateClient,
+        deleteClient,
+      }}
     >
       {children}
     </ServiceContext.Provider>
