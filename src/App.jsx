@@ -12,22 +12,22 @@ import { ServiceProvider } from "./context/ServiceContext";
 export function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Navbar />
-        <main className="container mx-auto px-10">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route element={<ProtectedRoute />}>
-              <ServiceProvider>
+      <ServiceProvider>
+        <BrowserRouter>
+          <Navbar />
+          <main className="container mx-auto px-10">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route element={<ProtectedRoute />}>
                 <Route path="/admin" element={<AdminMainPage />} />
                 <Route path="/client" element={<ClientPage />} />
-              </ServiceProvider>
-            </Route>
-          </Routes>
-        </main>
-      </BrowserRouter>
+              </Route>
+            </Routes>
+          </main>
+        </BrowserRouter>
+      </ServiceProvider>
     </AuthProvider>
   );
 }

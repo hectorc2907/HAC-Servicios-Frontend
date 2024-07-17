@@ -1,4 +1,11 @@
-import { useContext, createContext } from "react";
+import { useContext, createContext, useState } from "react";
+import {
+  getClientsRequest,
+  getClientRequest,
+  createClientRequest,
+  updateClientRequest,
+  deleteClientRequest,
+} from "../api/client";
 
 const ServiceContext = createContext();
 
@@ -11,7 +18,20 @@ export const useService = () => {
 };
 
 export function ServiceProvider({ children }) {
+  const [client, setClient] = useState([]);
+
+  const getClients = async () => {
+    try {
+      const res = await getClientsRequest();
+      setClient(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <ServiceContext.Provider value={{}}>{children}</ServiceContext.Provider>
+    <ServiceContext.Provider value={{ client, getClients }}>
+      {children}
+    </ServiceContext.Provider>
   );
 }
