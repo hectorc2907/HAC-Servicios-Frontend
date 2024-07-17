@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
   const {
@@ -7,11 +9,17 @@ function RegisterPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signup, errors: registerErrors } = useAuth();
+  const { signup, errors: registerErrors, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (values) => {
     signup(values);
   });
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/admin");
+  }, [isAuthenticated]);
+
   return (
     <div className="flex h-[calc(100vh-100px)] items-center justify-center">
       <div className="bg-slate-100 max-w-md w-full p-10 rounded-md">
@@ -52,7 +60,10 @@ function RegisterPage() {
           </button>
         </form>
         {registerErrors.map((errors, i) => (
-          <div className="bg-red-500 p-2 text-white text-center my-2 rounded-md" key={i}>
+          <div
+            className="bg-red-500 p-2 text-white text-center my-2 rounded-md"
+            key={i}
+          >
             {errors}
           </div>
         ))}
