@@ -29,12 +29,23 @@ export function ServiceProvider({ children }) {
     }
   };
 
+  const getClient = async (id) => {
+    try {
+      const res = await getClientRequest(id);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const createClient = async (client) => {
     await createClientRequest(client);
   };
 
   return (
-    <ServiceContext.Provider value={{ clients, getClients, createClient }}>
+    <ServiceContext.Provider
+      value={{ clients, getClients, getClient, createClient }}
+    >
       {children}
     </ServiceContext.Provider>
   );
