@@ -6,6 +6,13 @@ import {
   updateClientRequest,
   deleteClientRequest,
 } from "../api/client";
+import {
+  getTripRequest,
+  getTripsRequest,
+  createTripRequest,
+  updateTripRequest,
+  deleteTripRequest,
+} from "../api/trip";
 
 const ServiceContext = createContext();
 
@@ -19,6 +26,7 @@ export const useService = () => {
 
 export function ServiceProvider({ children }) {
   const [clients, setClients] = useState([]);
+  const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getClients = async () => {
@@ -63,6 +71,17 @@ export function ServiceProvider({ children }) {
     }
   };
 
+  const getTrips = async () => {
+    setLoading(true);
+    try {
+      const res = await getTripsRequest();
+      setTrips(res);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setTrips(false);
+    }
+  };
   return (
     <ServiceContext.Provider
       value={{
@@ -72,6 +91,8 @@ export function ServiceProvider({ children }) {
         createClient,
         updateClient,
         deleteClient,
+        trips,
+        getTrips,
         loading,
       }}
     >
