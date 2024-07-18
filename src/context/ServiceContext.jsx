@@ -76,7 +76,6 @@ export function ServiceProvider({ children }) {
     try {
       const res = await getTripsRequest();
       setTrips(res.data);
-      console.log(res.data)
     } catch (error) {
       console.error(error);
     } finally {

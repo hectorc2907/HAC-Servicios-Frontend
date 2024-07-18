@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useService } from "../../context/ServiceContext";
 import { FiPlusCircle } from "react-icons/fi";
 import { MoonLoader } from "react-spinners";
+import TripCard from "../../components/TripCard";
 
 function TripPage() {
   const { trips, getTrips, loading } = useService();
@@ -27,7 +28,11 @@ function TripPage() {
           No hay Viajes
         </h1>
       ) : (
-        <>{trips.map((trip) => trip._id)}</>
+        <>
+          {trips.map((trip) => (
+            <TripCard key={trip._id} trip={trip} />
+          ))}
+        </>
       )}
     </div>
   );
