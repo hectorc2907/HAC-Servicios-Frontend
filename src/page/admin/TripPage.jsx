@@ -3,21 +3,33 @@ import { useService } from "../../context/ServiceContext";
 import { FiPlusCircle } from "react-icons/fi";
 import { MoonLoader } from "react-spinners";
 import TripCard from "../../components/TripCard";
+import { useForm } from "react-hook-form";
 
 function TripPage() {
-  const { trips, getTrips, loading } = useService();
+  const { trips, getTrips, createTrip, loading } = useService();
+  const { handleSubmit } = useForm();
 
   useEffect(() => {
     getTrips();
   }, []);
+
+  const onSubmit = handleSubmit(async () => {
+    await createTrip();
+    await getTrips();
+  });
   return (
     <div>
       <h1 className="text-center text-3xl">Viajes</h1>
       <div className="flex justify-center mt-3 mb-2">
-        <button className="bg-slate-200 rounded-lg p-4 flex flex-col items-center">
-          <FiPlusCircle className="text-3xl" />
-          <p>Agregar</p>
-        </button>
+        <form onSubmit={onSubmit}>
+          <button
+            type="submit"
+            className="bg-slate-200 rounded-lg p-4 flex flex-col items-center"
+          >
+            <FiPlusCircle className="text-3xl" />
+            <p>Agregar</p>
+          </button>
+        </form>
       </div>
       {loading ? (
         <div className="flex h-[calc(100vh-400px)] items-center justify-center">

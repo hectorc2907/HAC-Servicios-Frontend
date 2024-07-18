@@ -82,6 +82,10 @@ export function ServiceProvider({ children }) {
       setLoading(false);
     }
   };
+
+  const createTrip = async (trip) => {
+    await createTripRequest(trip);
+  };
   return (
     <ServiceContext.Provider
       value={{
@@ -93,6 +97,7 @@ export function ServiceProvider({ children }) {
         deleteClient,
         trips,
         getTrips,
+        createTrip,
         loading,
       }}
     >
