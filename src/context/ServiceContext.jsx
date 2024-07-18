@@ -75,11 +75,12 @@ export function ServiceProvider({ children }) {
     setLoading(true);
     try {
       const res = await getTripsRequest();
-      setTrips(res);
+      setTrips(res.data);
+      console.log(res.data)
     } catch (error) {
       console.error(error);
     } finally {
-      setTrips(false);
+      setLoading(false);
     }
   };
   return (
