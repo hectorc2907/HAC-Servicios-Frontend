@@ -32,6 +32,7 @@ function TripCard({ trip }) {
         </button>
         <button
           className="flex flex-col items-center"
+          disabled
           onClick={() => handleDelete(trip._id)}
         >
           <MdDelete className="text-2xl" />
