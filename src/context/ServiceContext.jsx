@@ -83,8 +83,25 @@ export function ServiceProvider({ children }) {
     }
   };
 
+  const getTrip = async (id) => {
+    try {
+      const res = await getTripRequest(id);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const createTrip = async (trip) => {
     await createTripRequest(trip);
+  };
+
+  const updateTrip = async (id, client) => {
+    try {
+      await updateTripRequest(id, client);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const deleteTrip = async (id) => {
@@ -106,7 +123,9 @@ export function ServiceProvider({ children }) {
         deleteClient,
         trips,
         getTrips,
+        getTrip,
         createTrip,
+        updateTrip,
         deleteTrip,
         loading,
       }}
