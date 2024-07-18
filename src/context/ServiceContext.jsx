@@ -86,6 +86,15 @@ export function ServiceProvider({ children }) {
   const createTrip = async (trip) => {
     await createTripRequest(trip);
   };
+
+  const deleteTrip = async (id) => {
+    try {
+      const res = await deleteTripRequest(id);
+      if (res.status === 204) setTrips(trips);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <ServiceContext.Provider
       value={{
@@ -98,6 +107,7 @@ export function ServiceProvider({ children }) {
         trips,
         getTrips,
         createTrip,
+        deleteTrip,
         loading,
       }}
     >

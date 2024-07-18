@@ -3,9 +3,12 @@ import { CgMoreR } from "react-icons/cg";
 import { useService } from "../context/ServiceContext";
 
 function TripCard({ trip }) {
-  const {} = useService();
+  const { deleteTrip, getTrips } = useService();
 
-  const handleDelete = async (id) => {};
+  const handleDelete = async (id) => {
+    await deleteTrip(id);
+    await getTrips();
+  };
 
   return (
     <div className="bg-slate-200 my-2 rounded-lg">
