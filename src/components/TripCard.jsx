@@ -1,6 +1,7 @@
 import { MdDelete } from "react-icons/md";
 import { CgMoreR } from "react-icons/cg";
 import { useService } from "../context/ServiceContext";
+import { Link } from "react-router-dom";
 
 function TripCard({ trip }) {
   const { deleteTrip, getTrips } = useService();
@@ -26,10 +27,10 @@ function TripCard({ trip }) {
         </div>
       </div>
       <div className="flex justify-around px-4 py-6">
-        <button className="flex flex-col items-center">
+        <Link to={`/sale/${trip._id}`} className="flex flex-col items-center">
           <CgMoreR className="text-2xl" />
           <p>Detalles</p>
-        </button>
+        </Link>
         <button
           className="flex flex-col items-center"
           disabled

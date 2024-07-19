@@ -1,14 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import { ServiceProvider } from "./context/ServiceContext";
 import Navbar from "./components/Navbar";
 import HomePage from "./page/HomePage";
 import RegisterPage from "./page/RegisterPage";
 import LoginPage from "./page/LoginPage";
-import AdminMainPage from "./page/admin/AdminMainPage";
 import ProtectedRoute from "./components/ProtectedRoutes";
-import ClientPage from "./page/admin/ClientPage";
-import { ServiceProvider } from "./context/ServiceContext";
+import AdminMainPage from "./page/admin/AdminMainPage";
 import TripPage from "./page/admin/TripPage";
+import SalePage from "./page/admin/SalePage";
+import ClientPage from "./page/admin/ClientPage";
 
 export function App() {
   return (
@@ -24,6 +25,7 @@ export function App() {
               <Route element={<ProtectedRoute />}>
                 <Route path="/admin" element={<AdminMainPage />} />
                 <Route path="/trips" element={<TripPage />} />
+                <Route path="/sale/:id" element={<SalePage />} />
                 <Route path="/client" element={<ClientPage />} />
               </Route>
             </Routes>
