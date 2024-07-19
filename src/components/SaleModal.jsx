@@ -26,7 +26,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
       setValue("state", "");
       setValue("details", "");
     }
-  }, [sale]);
+  }, [sale, setValue]);
 
   const onSubmit = handleSubmit(async (data) => {
     data.quantity = Number(data.quantity);
@@ -35,6 +35,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
     data.tripId = tripId;
     if (sale) {
       await updateSale(sale._id, data);
+      console.log(data);
     } else {
       await createSale(data);
       setValue("quantity", "");
@@ -89,7 +90,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
               id="customer"
               className="w-full px-4 py-2 rounded-lg my-2"
               {...register("customer")}
-              defaultValue=""
+              value={watch("customer") || ""}
             >
               <option value="" disabled>
                 Seleccionar Cliente
@@ -110,7 +111,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
               id="half"
               className="w-full px-4 py-2 rounded-lg my-2"
               {...register("half")}
-              defaultValue=""
+              value={watch("half") || ""}
             >
               <option value="" disabled>
                 Seleccionar Medio
@@ -128,7 +129,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
               id="state"
               className="w-full px-4 py-2 rounded-lg my-2"
               {...register("state")}
-              defaultValue=""
+              value={watch("state") || ""}
             >
               <option value="" disabled>
                 Seleccionar Estado
