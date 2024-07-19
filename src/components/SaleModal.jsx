@@ -3,7 +3,13 @@ import { useService } from "../context/ServiceContext";
 import { useEffect } from "react";
 
 function SaleModal({ tripId, isOpen, onClose, sale }) {
-  const { register, handleSubmit, setValue, watch } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm();
   const { getSales, createSale, updateSale, clients } = useService();
 
   const quantity = watch("quantity") || 0;
@@ -35,7 +41,6 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
     data.tripId = tripId;
     if (sale) {
       await updateSale(sale._id, data);
-      console.log(data);
     } else {
       await createSale(data);
       setValue("quantity", "");
@@ -65,9 +70,17 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
                 id="quantity"
                 type="number"
                 className="w-full px-4 py-2 rounded-lg my-2"
-                {...register("quantity")}
+                {...register("quantity", {
+                  required: "La cantidad es requerida",
+                  min: { value: 1, message: "Debe ser mayor que 0" },
+                })}
                 placeholder="Cantidad"
               />
+              {errors.quantity && (
+                <p className="text-red-500 text-xs">
+                  {errors.quantity.message}
+                </p>
+              )}
             </div>
             <div>
               <label htmlFor="price" className="flex justify-center text-md">
@@ -77,9 +90,15 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
                 id="price"
                 type="number"
                 className="w-full px-4 py-2 rounded-lg my-2"
-                {...register("price")}
+                {...register("price", {
+                  required: "El precio es requerido",
+                  min: { value: 100, message: "Debe ser mayor que $100" },
+                })}
                 placeholder="Precio"
               />
+              {errors.price && (
+                <p className="text-red-500 text-xs">{errors.price.message}</p>
+              )}
             </div>
           </div>
           <div className="mb-5">
@@ -89,7 +108,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
             <select
               id="customer"
               className="w-full px-4 py-2 rounded-lg my-2"
-              {...register("customer")}
+              {...register("customer", { required: "Selecciona un cliente" })}
               value={watch("customer") || ""}
             >
               <option value="" disabled>
@@ -102,6 +121,9 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
                 </option>
               ))}
             </select>
+            {errors.customer && (
+              <p className="text-red-500 text-xs">{errors.customer.message}</p>
+            )}
           </div>
           <div className="mb-5">
             <label htmlFor="half" className="flex justify-center text-md">
@@ -110,7 +132,9 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
             <select
               id="half"
               className="w-full px-4 py-2 rounded-lg my-2"
-              {...register("half")}
+              {...register("half", {
+                required: "Selecciona una forma de pago",
+              })}
               value={watch("half") || ""}
             >
               <option value="" disabled>
@@ -120,6 +144,9 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
               <option value="Transferia">Transferencia</option>
               <option value="Mixto">Mixto</option>
             </select>
+            {errors.half && (
+              <p className="text-red-500 text-xs">{errors.half.message}</p>
+            )}
           </div>
           <div className="mb-5">
             <label htmlFor="state" className="flex justify-center text-md">
@@ -128,7 +155,9 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
             <select
               id="state"
               className="w-full px-4 py-2 rounded-lg my-2"
-              {...register("state")}
+              {...register("state", {
+                required: "Selecciona un estado del pago",
+              })}
               value={watch("state") || ""}
             >
               <option value="" disabled>
@@ -138,6 +167,9 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
               <option value="Parcial">Parcial</option>
               <option value="Pagado">Pagado</option>
             </select>
+            {errors.state && (
+              <p className="text-red-500 text-xs">{errors.state.message}</p>
+            )}
           </div>
           <div>
             <label htmlFor="details" className="flex justify-center text-md">
