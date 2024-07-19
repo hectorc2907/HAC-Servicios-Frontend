@@ -158,7 +158,7 @@ export function ServiceProvider({ children }) {
   const deleteSale = async (id) => {
     try {
       const res = await deleteSaleRequest(id);
-      if (res.status === 204) setTrips(trips);
+      if (res.status === 204) setSales(sales);
     } catch (error) {
       console.error(error);
     }

@@ -3,8 +3,12 @@ import { useService } from "../context/ServiceContext";
 import { useEffect } from "react";
 
 function SaleModal({ tripId, isOpen, onClose, sale }) {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, watch } = useForm();
   const { getSales, createSale, updateSale } = useService();
+
+  const quantity = watch("quantity") || 0;
+  const price = watch("price") || 0;
+  const total = Number(quantity) * Number(price);
 
   useEffect(() => {
     if (sale) {
@@ -56,7 +60,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
             {...register("price")}
             placeholder="Precio"
           />
-          <p className="w-full px-4 py-2 rounded-lg my-2">Total: </p>
+          <p className="w-full px-4 py-2 rounded-lg my-2">Total: {total}</p>
           <label htmlFor="customer">Cliente</label>
           <input
             type="text"

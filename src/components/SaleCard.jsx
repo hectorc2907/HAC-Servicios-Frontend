@@ -1,7 +1,17 @@
+import { useService } from "../context/ServiceContext";
+
 function SaleCard({ sale, onUpdate }) {
+  const { getSales, deleteSale } = useService();
+
+  console.log(sale._id);
+
+  const handleDelete = async (id) => {
+    await deleteSale(id);
+    await getSales();
+  };
   return (
     <>
-      <li>{sale.quantiy}</li>
+      <li>{sale.quantity}</li>
       <li>{sale.price}</li>
       <li>{sale.total}</li>
       <li>{sale.customer}</li>
@@ -9,7 +19,7 @@ function SaleCard({ sale, onUpdate }) {
         <button onClick={() => onUpdate(sale)}>Actualizar</button>
       </li>
       <li>
-        <button>Borrar</button>
+        <button onClick={() => handleDelete(sale._id)}>Borrar</button>
       </li>
     </>
   );
