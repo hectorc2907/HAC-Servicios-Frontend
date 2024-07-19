@@ -147,9 +147,9 @@ export function ServiceProvider({ children }) {
     await createSaleRequest(trip);
   };
 
-  const updateSale = async (id, client) => {
+  const updateSale = async (id, sale) => {
     try {
-      await updateSaleRequest(id, client);
+      await updateSaleRequest(id, sale);
     } catch (error) {
       console.error(error);
     }

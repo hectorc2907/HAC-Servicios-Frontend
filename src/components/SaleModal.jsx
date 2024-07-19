@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useService } from "../context/ServiceContext";
 import { useEffect } from "react";
 
-function SaleModal({ isOpen, onClose, sale }) {
+function SaleModal({ tripId, isOpen, onClose, sale }) {
   const { register, handleSubmit, setValue } = useForm();
   const { getSales, createSale, updateSale } = useService();
 
@@ -22,7 +22,16 @@ function SaleModal({ isOpen, onClose, sale }) {
     data.quantity = Number(data.quantity);
     data.price = Number(data.price);
     data.total = data.quantity * data.price;
-    await createSale(data);
+    data.tripId = tripId;
+    if (sale) {
+      await updateSale(sale._id, data);
+    } else {
+      await createSale(data);
+      setValue("quantity", "");
+      setValue("price", "");
+      setValue("customer", "");
+    }
+    await getSales();
     onClose();
   });
   if (!isOpen) return null;

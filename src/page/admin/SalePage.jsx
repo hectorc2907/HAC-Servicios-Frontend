@@ -4,15 +4,25 @@ import { FiPlusCircle } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import SaleModal from "../../components/SaleModal";
 import SaleCard from "../../components/SaleCard";
+import { useParams } from "react-router-dom";
 
 function SalePage() {
+  const { id } = useParams();
   const [isModelOpen, setIsModalOpen] = useState(false);
   const [selectedSale, setSelectedSale] = useState(null);
-  const { loading, sales, getSales } = useService();
+  const { sales, getSales, loading } = useService();
+  const [filteredSales, setFilteredSales] = useState([]);
 
   useEffect(() => {
     getSales();
   }, []);
+
+  useEffect(() => {
+    if (id && sales) {
+      const filtered = sales.filter((sale) => sale.trip._id === id);
+      setFilteredSales(filtered);
+    }
+  }, [id, sales]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
@@ -29,20 +39,18 @@ function SalePage() {
     closeModal();
     await getSales();
   };
+
   return (
     <div>
       <h1 className="text-center text-3xl">Detalles</h1>
       <div className="flex justify-center mt-3 mb-2">
-        <form>
-          <button
-            type="submit"
-            className="bg-slate-200 rounded-lg p-4 flex flex-col items-center"
-            onClick={openModal}
-          >
-            <FiPlusCircle className="text-3xl" />
-            <p>Agregar</p>
-          </button>
-        </form>
+        <button
+          className="bg-slate-200 rounded-lg p-4 flex flex-col items-center"
+          onClick={openModal}
+        >
+          <FiPlusCircle className="text-3xl" />
+          <p>Agregar</p>
+        </button>
       </div>
       {loading ? (
         <div className="flex h-[calc(100vh-400px)] items-center justify-center">
@@ -54,7 +62,7 @@ function SalePage() {
         </h1>
       ) : (
         <ul>
-          {sales.map((sale) => (
+          {filteredSales.map((sale) => (
             <SaleCard key={sale._id} sale={sale} onUpdate={handleUpdate} />
           ))}
         </ul>
@@ -63,6 +71,7 @@ function SalePage() {
         isOpen={isModelOpen}
         onClose={handleModalClose}
         sale={selectedSale}
+        tripId={id}
       />
     </div>
   );
