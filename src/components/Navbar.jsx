@@ -14,7 +14,7 @@ function Navbar() {
         {isAuthenticated ? (
           <>
             <li>
-              <Link>Viajes</Link>
+              <Link to="/trips">Viajes</Link>
             </li>
             <li>
               <Link to="/client">Clientes</Link>

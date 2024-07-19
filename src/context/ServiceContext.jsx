@@ -6,6 +6,13 @@ import {
   updateClientRequest,
   deleteClientRequest,
 } from "../api/client";
+import {
+  getTripRequest,
+  getTripsRequest,
+  createTripRequest,
+  updateTripRequest,
+  deleteTripRequest,
+} from "../api/trip";
 
 const ServiceContext = createContext();
 
@@ -19,6 +26,7 @@ export const useService = () => {
 
 export function ServiceProvider({ children }) {
   const [clients, setClients] = useState([]);
+  const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getClients = async () => {
@@ -63,6 +71,47 @@ export function ServiceProvider({ children }) {
     }
   };
 
+  const getTrips = async () => {
+    setLoading(true);
+    try {
+      const res = await getTripsRequest();
+      setTrips(res.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getTrip = async (id) => {
+    try {
+      const res = await getTripRequest(id);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const createTrip = async (trip) => {
+    await createTripRequest(trip);
+  };
+
+  const updateTrip = async (id, client) => {
+    try {
+      await updateTripRequest(id, client);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteTrip = async (id) => {
+    try {
+      const res = await deleteTripRequest(id);
+      if (res.status === 204) setTrips(trips);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <ServiceContext.Provider
       value={{
@@ -72,6 +121,12 @@ export function ServiceProvider({ children }) {
         createClient,
         updateClient,
         deleteClient,
+        trips,
+        getTrips,
+        getTrip,
+        createTrip,
+        updateTrip,
+        deleteTrip,
         loading,
       }}
     >
