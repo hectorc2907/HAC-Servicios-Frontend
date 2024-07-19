@@ -4,14 +4,11 @@ import { useEffect } from "react";
 
 function SaleModal({ tripId, isOpen, onClose, sale }) {
   const { register, handleSubmit, setValue, watch } = useForm();
-  const { getSales, createSale, updateSale, clients } =
-    useService();
+  const { getSales, createSale, updateSale, clients } = useService();
 
   const quantity = watch("quantity") || 0;
   const price = watch("price") || 0;
   const total = Number(quantity) * Number(price);
-
-  console.log(clients)
 
   useEffect(() => {
     if (sale) {

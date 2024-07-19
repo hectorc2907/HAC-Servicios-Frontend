@@ -3,8 +3,6 @@ import { useService } from "../context/ServiceContext";
 function SaleCard({ sale, onUpdate }) {
   const { getSales, deleteSale } = useService();
 
-  console.log(sale._id);
-
   const handleDelete = async (id) => {
     await deleteSale(id);
     await getSales();
