@@ -15,10 +15,16 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
       setValue("quantity", sale.quantity);
       setValue("price", sale.price);
       setValue("customer", sale.customer);
+      setValue("half", sale.half);
+      setValue("state", sale.state);
+      setValue("details", sale.details);
     } else {
       setValue("quantity", "");
       setValue("price", "");
       setValue("customer", "");
+      setValue("half", "");
+      setValue("state", "");
+      setValue("details", "");
     }
   }, [sale]);
 
@@ -34,6 +40,9 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
       setValue("quantity", "");
       setValue("price", "");
       setValue("customer", "");
+      setValue("half", "");
+      setValue("state", "");
+      setValue("details", "");
     }
     await getSales();
     onClose();
@@ -94,13 +103,13 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
             </select>
           </div>
           <div className="mb-5">
-            <label htmlFor="state" className="flex justify-center text-md">
+            <label htmlFor="half" className="flex justify-center text-md">
               Forma de Pago
             </label>
             <select
-              id="state"
+              id="half"
               className="w-full px-4 py-2 rounded-lg my-2"
-              {...register("state")}
+              {...register("half")}
               defaultValue=""
             >
               <option value="" disabled>
@@ -149,7 +158,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
               type="submit"
               className="mt-4 bg-green-500 text-white p-2 rounded"
             >
-              Vender
+              {sale ? "Actualizar Venta" : "Vender"}
             </button>
             <button
               type="button"
