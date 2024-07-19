@@ -46,7 +46,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
           {sale ? "Actualizar Venta" : "Venta Nuevo"}
         </h1>
         <form onSubmit={onSubmit}>
-          <div className="flex gap-x-10 my-10">
+          <div className="flex gap-x-10 my-5">
             <div>
               <label htmlFor="quantity" className="flex justify-center text-md">
                 Cantidad
@@ -83,7 +83,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
               defaultValue=""
             >
               <option value="" disabled>
-                Seleccionar cliente
+                Seleccionar Cliente
               </option>
               <option value="Verduleria">No Cliente</option>
               {clients.map((client) => (
@@ -92,6 +92,54 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
                 </option>
               ))}
             </select>
+          </div>
+          <div className="mb-5">
+            <label htmlFor="state" className="flex justify-center text-md">
+              Forma de Pago
+            </label>
+            <select
+              id="state"
+              className="w-full px-4 py-2 rounded-lg my-2"
+              {...register("state")}
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Seleccionar Medio
+              </option>
+              <option value="Efectivo">Efectivo</option>
+              <option value="Transferia">Transferencia</option>
+              <option value="Mixto">Mixto</option>
+            </select>
+          </div>
+          <div className="mb-5">
+            <label htmlFor="state" className="flex justify-center text-md">
+              Estado
+            </label>
+            <select
+              id="state"
+              className="w-full px-4 py-2 rounded-lg my-2"
+              {...register("state")}
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Seleccionar Estado
+              </option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Parcial">Parcial</option>
+              <option value="Pagado">Pagado</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="details" className="flex justify-center text-md">
+              Detalles
+            </label>
+            <input
+              id="details"
+              type="text"
+              className="w-full px-4 py-2 rounded-lg my-2"
+              {...register("details")}
+              placeholder="Detalles"
+            />
           </div>
           <p className="w-full px-4 py-2 rounded-lg my-2 text-center text-4xl mb-5">
             Total: ${total}
