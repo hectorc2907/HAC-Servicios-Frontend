@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import SaleModal from "../../components/SaleModal";
 import SaleCard from "../../components/SaleCard";
 import { useParams } from "react-router-dom";
+import { formatDate } from "../../utils/dateFormated";
 
 function SalePage() {
   const { id } = useParams();
@@ -52,8 +53,7 @@ function SalePage() {
     <div>
       <h1 className="text-center text-3xl">Detalles</h1>
       {trip && (
-        <div className="text-center mb-4">
-          <h2 className="text-xl font-semibold">Detalles del Viaje</h2>
+        <div className="grid grid-cols-2 mb-4">
           <p>
             <strong>Ingresos:</strong> ${trip.income}
           </p>
@@ -62,6 +62,9 @@ function SalePage() {
           </p>
           <p>
             <strong>Balance:</strong> ${trip.balance}
+          </p>
+          <p>
+            <strong>Fecha: </strong> {formatDate(trip.createdAt)}
           </p>
         </div>
       )}
