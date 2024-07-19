@@ -13,6 +13,13 @@ import {
   updateTripRequest,
   deleteTripRequest,
 } from "../api/trip";
+import {
+  getSaleRequest,
+  getSalesRequest,
+  createSaleRequest,
+  updateSaleRequest,
+  deleteSaleRequest,
+} from "../api/sale";
 
 const ServiceContext = createContext();
 
@@ -27,6 +34,7 @@ export const useService = () => {
 export function ServiceProvider({ children }) {
   const [clients, setClients] = useState([]);
   const [trips, setTrips] = useState([]);
+  const [sales, setSales] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getClients = async () => {
@@ -112,6 +120,48 @@ export function ServiceProvider({ children }) {
       console.error(error);
     }
   };
+
+  const getSales = async () => {
+    setLoading(true);
+    try {
+      const res = await getSalesRequest();
+      setSales(res.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getSale = async (id) => {
+    try {
+      const res = await getSaleRequest(id);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const createSale = async (trip) => {
+    await createSaleRequest(trip);
+  };
+
+  const updateSale = async (id, client) => {
+    try {
+      await updateSaleRequest(id, client);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteSale = async (id) => {
+    try {
+      const res = await deleteSaleRequest(id);
+      if (res.status === 204) setTrips(trips);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <ServiceContext.Provider
       value={{
@@ -127,6 +177,12 @@ export function ServiceProvider({ children }) {
         createTrip,
         updateTrip,
         deleteTrip,
+        sales,
+        getSales,
+        getSale,
+        createSale,
+        updateSale,
+        deleteSale,
         loading,
       }}
     >
