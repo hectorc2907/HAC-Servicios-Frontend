@@ -1,9 +1,14 @@
 import { useService } from "../../context/ServiceContext";
 import { MoonLoader } from "react-spinners";
 import { FiPlusCircle } from "react-icons/fi";
+import { useEffect } from "react";
 
 function SalePage() {
-  const { loading } = useService();
+  const { loading, sales, getSales } = useService();
+
+  useEffect(() => {
+    getSales();
+  }, []);
   return (
     <div>
       <h1 className="text-center text-3xl">Detalles</h1>
@@ -23,7 +28,11 @@ function SalePage() {
           <MoonLoader color="#0d16fc" />
         </div>
       ) : (
-        <></>
+        <>
+          {sales.map((sale) => (
+            <h1 key={sale._id}>{sale._id}</h1>
+          ))}
+        </>
       )}
     </div>
   );

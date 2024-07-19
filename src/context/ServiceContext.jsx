@@ -126,6 +126,7 @@ export function ServiceProvider({ children }) {
     try {
       const res = await getSalesRequest();
       setSales(res.data);
+      console.log(res.data)
     } catch (error) {
       console.error(error);
     } finally {
