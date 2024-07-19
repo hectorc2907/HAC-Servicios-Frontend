@@ -48,6 +48,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
         <form onSubmit={onSubmit}>
           <label htmlFor="quantity">Cantidad</label>
           <input
+            id="quantity"
             type="number"
             className="w-full px-4 py-2 rounded-lg my-2"
             {...register("quantity")}
@@ -55,6 +56,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
           />
           <label htmlFor="price">Precio</label>
           <input
+            id="price"
             type="number"
             className="w-full px-4 py-2 rounded-lg my-2"
             {...register("price")}
@@ -63,6 +65,7 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
           <p className="w-full px-4 py-2 rounded-lg my-2">Total: {total}</p>
           <label htmlFor="customer">Cliente</label>
           <select
+            id="customer"
             className="w-full px-4 py-2 rounded-lg my-2"
             {...register("customer")}
             defaultValue=""
