@@ -56,7 +56,7 @@ function SalePage() {
         <div className="flex h-[calc(100vh-400px)] items-center justify-center">
           <MoonLoader color="#0d16fc" />
         </div>
-      ) : sales.length === 0 ? (
+      ) : filteredSales.length === 0 ? (
         <h1 className="flex h-[calc(100vh-400px)] items-center justify-center text-2xl">
           No hay Ventas
         </h1>
