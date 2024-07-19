@@ -46,48 +46,65 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
           {sale ? "Actualizar Venta" : "Venta Nuevo"}
         </h1>
         <form onSubmit={onSubmit}>
-          <label htmlFor="quantity">Cantidad</label>
-          <input
-            id="quantity"
-            type="number"
-            className="w-full px-4 py-2 rounded-lg my-2"
-            {...register("quantity")}
-            placeholder="Cantidad"
-          />
-          <label htmlFor="price">Precio</label>
-          <input
-            id="price"
-            type="number"
-            className="w-full px-4 py-2 rounded-lg my-2"
-            {...register("price")}
-            placeholder="Precio"
-          />
-          <p className="w-full px-4 py-2 rounded-lg my-2">Total: {total}</p>
-          <label htmlFor="customer">Cliente</label>
-          <select
-            id="customer"
-            className="w-full px-4 py-2 rounded-lg my-2"
-            {...register("customer")}
-            defaultValue=""
-          >
-            <option value="" disabled>
-              Seleccionar cliente
-            </option>
-            <option value="Verduleria">No Cliente</option>
-            {clients.map((client) => (
-              <option key={client._id} value={client.firstName}>
-                {client.firstName}
+          <div className="flex gap-x-10 my-10">
+            <div>
+              <label htmlFor="quantity" className="flex justify-center text-md">
+                Cantidad
+              </label>
+              <input
+                id="quantity"
+                type="number"
+                className="w-full px-4 py-2 rounded-lg my-2"
+                {...register("quantity")}
+                placeholder="Cantidad"
+              />
+            </div>
+            <div>
+              <label htmlFor="price" className="flex justify-center text-md">
+                Precio
+              </label>
+              <input
+                id="price"
+                type="number"
+                className="w-full px-4 py-2 rounded-lg my-2"
+                {...register("price")}
+                placeholder="Precio"
+              />
+            </div>
+          </div>
+          <div className="mb-5">
+            <label htmlFor="customer" className="flex justify-center text-md">
+              Cliente
+            </label>
+            <select
+              id="customer"
+              className="w-full px-4 py-2 rounded-lg my-2"
+              {...register("customer")}
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Seleccionar cliente
               </option>
-            ))}
-          </select>
+              <option value="Verduleria">No Cliente</option>
+              {clients.map((client) => (
+                <option key={client._id} value={client.firstName}>
+                  {client.firstName}
+                </option>
+              ))}
+            </select>
+          </div>
+          <p className="w-full px-4 py-2 rounded-lg my-2 text-center text-4xl mb-5">
+            Total: ${total}
+          </p>
           <div className="flex gap-x-2 justify-end">
             <button
               type="submit"
               className="mt-4 bg-green-500 text-white p-2 rounded"
             >
-              Guardar
+              Vender
             </button>
             <button
+              type="button"
               onClick={onClose}
               className="mt-4 bg-red-500 text-white p-2 rounded"
             >
