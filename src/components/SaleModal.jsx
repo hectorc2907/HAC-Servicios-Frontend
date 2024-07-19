@@ -4,11 +4,14 @@ import { useEffect } from "react";
 
 function SaleModal({ tripId, isOpen, onClose, sale }) {
   const { register, handleSubmit, setValue, watch } = useForm();
-  const { getSales, createSale, updateSale } = useService();
+  const { getSales, createSale, updateSale, clients } =
+    useService();
 
   const quantity = watch("quantity") || 0;
   const price = watch("price") || 0;
   const total = Number(quantity) * Number(price);
+
+  console.log(clients)
 
   useEffect(() => {
     if (sale) {
@@ -62,12 +65,21 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
           />
           <p className="w-full px-4 py-2 rounded-lg my-2">Total: {total}</p>
           <label htmlFor="customer">Cliente</label>
-          <input
-            type="text"
+          <select
             className="w-full px-4 py-2 rounded-lg my-2"
             {...register("customer")}
-            placeholder="Cliente"
-          />
+            defaultValue=""
+          >
+            <option value="" disabled>
+              Seleccionar cliente
+            </option>
+            <option value="Verduleria">No Cliente</option>
+            {clients.map((client) => (
+              <option key={client._id} value={client.firstName}>
+                {client.firstName}
+              </option>
+            ))}
+          </select>
           <div className="flex gap-x-2 justify-end">
             <button
               type="submit"

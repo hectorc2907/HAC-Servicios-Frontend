@@ -10,11 +10,12 @@ function SalePage() {
   const { id } = useParams();
   const [isModelOpen, setIsModalOpen] = useState(false);
   const [selectedSale, setSelectedSale] = useState(null);
-  const { sales, getSales, loading } = useService();
+  const { sales, getSales, getClients, loading } = useService();
   const [filteredSales, setFilteredSales] = useState([]);
 
   useEffect(() => {
     getSales();
+    getClients();
   }, []);
 
   useEffect(() => {
