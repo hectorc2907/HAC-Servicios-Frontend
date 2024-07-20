@@ -25,7 +25,7 @@ function SaleCard({ sale, onUpdate }) {
         rounded-t-md py-2`}
         >
           <div className="grid grid-cols-2">
-            <p className="ps-3">Cantidad: {sale.quantity}</p>
+            <p className="ps-3">Cantidad: {sale.quantity}Kg</p>
             <p>Precio: ${sale.price}</p>
             <p className="ps-3">Total: ${sale.total}</p>
             <p>
