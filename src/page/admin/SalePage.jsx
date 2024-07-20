@@ -1,11 +1,13 @@
 import { useService } from "../../context/ServiceContext";
 import { MoonLoader } from "react-spinners";
 import { FiPlusCircle } from "react-icons/fi";
+import { GoAlert } from "react-icons/go";
 import { useEffect, useState } from "react";
 import SaleModal from "../../components/SaleModal";
 import SaleCard from "../../components/SaleCard";
 import { useParams } from "react-router-dom";
 import { formatDate } from "../../utils/dateFormated";
+import { Link } from "react-router-dom";
 
 function SalePage() {
   const { id } = useParams();
@@ -93,14 +95,22 @@ function SalePage() {
           </p>
         </div>
       )}
-      <div className="flex justify-center mt-3 mb-2">
+      <div className="flex gap-x-10 justify-center mt-3 mb-2">
         <button
-          className="bg-slate-200 rounded-lg p-4 flex flex-col items-center"
+          className="bg-slate-200 rounded-lg p-4 flex flex-col items-center w-24"
           onClick={openModal}
         >
           <FiPlusCircle className="text-3xl" />
           <p>Agregar</p>
         </button>
+        <Link
+          to={trip ? `/bills/${trip._id}` : "#"}
+          className="bg-slate-200 rounded-lg p-4 flex flex-col items-center w-24"
+          onClick={openModal}
+        >
+          <GoAlert className="text-3xl" />
+          <p>Gastos</p>
+        </Link>
       </div>
       {loading ? (
         <div className="flex h-[calc(100vh-400px)] items-center justify-center">
