@@ -17,9 +17,9 @@ function TripCard({ trip }) {
       <div className="bg-slate-300 rounded-t-lg">
         <div className="flex flex-col px-2 py-4 gap-y-2">
           <div className="grid grid-cols-2">
-            <h3>Ingresos:{trip.income}</h3>
-            <h3>Egresos:{trip.expenses}</h3>
-            <h3>Balance:{trip.balance}</h3>
+            <h3>Ingresos: ${trip.income}</h3>
+            <h3>Egresos: ${trip.expenses}</h3>
+            <h3>Balance: ${trip.balance}</h3>
           </div>
           <div className="flex flex-col">
             <p>Creado:{trip.createdAt}</p>
@@ -38,7 +38,6 @@ function TripCard({ trip }) {
         </Link>
         <button
           className="flex flex-col items-center"
-          disabled
           onClick={() => handleDelete(trip._id)}
         >
           <RiDeleteBin6Line className="text-2xl" />
