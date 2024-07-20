@@ -12,7 +12,8 @@ function SalePage() {
   const [isModelOpen, setIsModalOpen] = useState(false);
   const [selectedSale, setSelectedSale] = useState(null);
   const [trip, setTrip] = useState(null);
-  const { sales, getSales, getClients, getTrip, loading } = useService();
+  const { sales, getSales, getClients, getTrip, updateTrip, loading } =
+    useService();
   const [filteredSales, setFilteredSales] = useState([]);
 
   useEffect(() => {
@@ -30,8 +31,12 @@ function SalePage() {
     if (id && sales) {
       const filtered = sales.filter((sale) => sale.trip._id === id);
       setFilteredSales(filtered);
+      const totalIncome = calculateTotalSum(filtered);
+      if (trip && totalIncome !== trip.income) {
+        updateTripIncome(totalIncome, trip.expenses);
+      }
     }
-  }, [id, sales]);
+  }, [id, sales, trip]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
@@ -47,6 +52,26 @@ function SalePage() {
   const handleModalClose = async () => {
     closeModal();
     await getSales();
+  };
+
+  const calculateTotalSum = (sales) => {
+    return sales.reduce((acc, sale) => acc + sale.total, 0);
+  };
+
+  const calculateBalance = (income, expenses) => {
+    return income - expenses;
+  };
+
+  const updateTripIncome = async (totalIncome, expenses) => {
+    if (trip) {
+      const updatedTrip = {
+        ...trip,
+        income: totalIncome,
+        balance: calculateBalance(totalIncome, expenses),
+      };
+      await updateTrip(trip._id, updatedTrip);
+      setTrip(updatedTrip);
+    }
   };
 
   return (
