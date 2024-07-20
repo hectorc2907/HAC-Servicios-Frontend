@@ -16,7 +16,7 @@ function ClientCard({ client, onUpdate }) {
       <div className="text-white bg-blue-500 rounded-t-lg py-2">
         <div className="grid grid-cols-2 px-5">
           <p>Nombre: {client.firstName}</p>
-          <p>Apodo: {client.lastName}</p>
+          <p>Apodo: {client.nickName}</p>
           <p>Direccion: {client.address}</p>
         </div>
       </div>

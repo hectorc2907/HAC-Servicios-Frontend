@@ -9,12 +9,12 @@ function ClientModal({ isOpen, onClose, client }) {
   useEffect(() => {
     if (client) {
       setValue("firstName", client.firstName);
-      setValue("lastName", client.lastName);
+      setValue("nickName", client.nickName);
       setValue("phoneNumber", client.phoneNumber);
       setValue("address", client.address);
     } else {
       setValue("firstName", "");
-      setValue("lastName", "");
+      setValue("nickName", "");
       setValue("phoneNumber", "");
       setValue("address", "");
     }
@@ -27,7 +27,7 @@ function ClientModal({ isOpen, onClose, client }) {
     } else {
       await createClient(data);
       setValue("firstName", "");
-      setValue("lastName", "");
+      setValue("nickName", "");
       setValue("phoneNumber", "");
       setValue("address", "");
     }
@@ -49,12 +49,12 @@ function ClientModal({ isOpen, onClose, client }) {
             {...register("firstName")}
             placeholder="Nombre"
           />
-          <label htmlFor="lastName">Apellido</label>
+          <label htmlFor="nickName">Apodo</label>
           <input
             type="text"
             className="w-full px-4 py-2 rounded-lg my-2"
-            {...register("lastName")}
-            placeholder="Apellido"
+            {...register("nickName")}
+            placeholder="Apodo"
           />
           <label htmlFor="phoneNumber">Telefono</label>
           <input

@@ -116,8 +116,8 @@ function SaleModal({ tripId, isOpen, onClose, sale }) {
               </option>
               <option value="Verduleria">No Cliente</option>
               {clients.map((client) => (
-                <option key={client._id} value={client.firstName}>
-                  {client.firstName}
+                <option key={client._id} value={client.nickName}>
+                  {client.nickName}
                 </option>
               ))}
             </select>
