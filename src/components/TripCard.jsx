@@ -1,5 +1,6 @@
-import { MdDelete } from "react-icons/md";
-import { CgMoreR } from "react-icons/cg";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { GoBriefcase } from "react-icons/go";
+import { GoAlert } from "react-icons/go";
 import { useService } from "../context/ServiceContext";
 import { Link } from "react-router-dom";
 
@@ -12,7 +13,7 @@ function TripCard({ trip }) {
   };
 
   return (
-    <div className="bg-slate-200 my-2 rounded-lg">
+    <div className="bg-slate-100 my-2 rounded-md">
       <div className="bg-slate-300 rounded-t-lg">
         <div className="flex flex-col px-2 py-4 gap-y-2">
           <div className="grid grid-cols-2">
@@ -26,17 +27,21 @@ function TripCard({ trip }) {
           </div>
         </div>
       </div>
-      <div className="flex justify-around px-4 py-6">
+      <div className="flex justify-evenly py-4">
         <Link to={`/sale/${trip._id}`} className="flex flex-col items-center">
-          <CgMoreR className="text-2xl" />
-          <p>Detalles</p>
+          <GoBriefcase className="text-2xl" />
+          <p>Vender</p>
+        </Link>
+        <Link to={`/bills/${trip._id}`} className="flex flex-col items-center">
+          <GoAlert className="text-2xl" />
+          <p>Gastos</p>
         </Link>
         <button
           className="flex flex-col items-center"
           disabled
           onClick={() => handleDelete(trip._id)}
         >
-          <MdDelete className="text-2xl" />
+          <RiDeleteBin6Line className="text-2xl" />
           <p>Borrar</p>
         </button>
       </div>
