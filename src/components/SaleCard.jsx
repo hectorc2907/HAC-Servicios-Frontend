@@ -3,12 +3,11 @@ import { FaWhatsapp } from "react-icons/fa";
 import { MdPhoneForwarded } from "react-icons/md";
 import { GrDocumentUpdate } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { getClientPhoneNumber } from "../utils/phoneNumber";
 
 function SaleCard({ sale, onUpdate }) {
   const { getSales, deleteSale, clients } = useService();
-
-  const client = clients.find((client) => client.firstName === sale.customer);
-  const phoneNumber = client ? client.phoneNumber : "";
+  const phoneNumber = getClientPhoneNumber(clients, sale.customer);
 
   const handleDelete = async (id) => {
     await deleteSale(id);
