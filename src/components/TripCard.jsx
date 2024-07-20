@@ -3,6 +3,7 @@ import { GoBriefcase } from "react-icons/go";
 import { GoAlert } from "react-icons/go";
 import { useService } from "../context/ServiceContext";
 import { Link } from "react-router-dom";
+import { formatDate } from "../utils/dateFormated";
 
 function TripCard({ trip }) {
   const { deleteTrip, getTrips } = useService();
@@ -14,16 +15,13 @@ function TripCard({ trip }) {
 
   return (
     <div className="bg-slate-100 my-2 rounded-md">
-      <div className="bg-slate-300 rounded-t-lg">
-        <div className="flex flex-col px-2 py-4 gap-y-2">
+      <div className="bg-blue-500 rounded-t-lg py-2">
+        <div className="text-white flex flex-col px-2 py-4 gap-y-2">
           <div className="grid grid-cols-2">
-            <h3>Ingresos: ${trip.income}</h3>
-            <h3>Egresos: ${trip.expenses}</h3>
-            <h3>Balance: ${trip.balance}</h3>
-          </div>
-          <div className="flex flex-col">
-            <p>Creado:{trip.createdAt}</p>
-            <p>Actualizacion:{trip.updatedAt}</p>
+            <p className="ps-3">Ingresos: ${trip.income}</p>
+            <p>Egresos: ${trip.expenses}</p>
+            <p className="ps-3">Balance: ${trip.balance}</p>
+            <p>Creado:{formatDate(trip.createdAt)}</p>
           </div>
         </div>
       </div>
