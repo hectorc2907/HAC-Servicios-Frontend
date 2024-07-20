@@ -14,7 +14,7 @@ function ClientCard({ client, onUpdate }) {
   return (
     <div className="bg-slate-100 my-2 rounded-lg">
       <div className="text-white bg-blue-500 rounded-t-lg py-2">
-        <div className="grid grid-cols-2 px-5">
+        <div className="grid grid-cols-1 px-5">
           <p>Nombre: {client.firstName}</p>
           <p>Apodo: {client.nickName}</p>
           <p>Direccion: {client.address}</p>
