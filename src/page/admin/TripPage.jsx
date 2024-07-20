@@ -13,6 +13,10 @@ function TripPage() {
     getTrips();
   }, []);
 
+  const sortedTrips = [...trips].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+
   const onSubmit = handleSubmit(async () => {
     await createTrip();
     await getTrips();
@@ -41,7 +45,7 @@ function TripPage() {
         </h1>
       ) : (
         <>
-          {trips.map((trip) => (
+          {sortedTrips.map((trip) => (
             <TripCard key={trip._id} trip={trip} />
           ))}
         </>
