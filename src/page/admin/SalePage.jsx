@@ -1,29 +1,44 @@
 import { useService } from "../../context/ServiceContext";
 import { MoonLoader } from "react-spinners";
 import { FiPlusCircle } from "react-icons/fi";
+import { GoAlert } from "react-icons/go";
 import { useEffect, useState } from "react";
 import SaleModal from "../../components/SaleModal";
 import SaleCard from "../../components/SaleCard";
 import { useParams } from "react-router-dom";
+import { formatDate } from "../../utils/dateFormated";
+import { Link } from "react-router-dom";
 
 function SalePage() {
   const { id } = useParams();
   const [isModelOpen, setIsModalOpen] = useState(false);
   const [selectedSale, setSelectedSale] = useState(null);
-  const { sales, getSales, getClients, loading } = useService();
+  const [trip, setTrip] = useState(null);
+  const { sales, getSales, getClients, getTrip, updateTrip, loading } =
+    useService();
   const [filteredSales, setFilteredSales] = useState([]);
 
   useEffect(() => {
     getSales();
     getClients();
-  }, []);
+    if (id) {
+      (async () => {
+        const fetchedTrip = await getTrip(id);
+        setTrip(fetchedTrip);
+      })();
+    }
+  }, [id]);
 
   useEffect(() => {
     if (id && sales) {
       const filtered = sales.filter((sale) => sale.trip._id === id);
       setFilteredSales(filtered);
+      const totalIncome = calculateTotalSum(filtered);
+      if (trip && totalIncome !== trip.income) {
+        updateTripIncome(totalIncome, trip.expenses);
+      }
     }
-  }, [id, sales]);
+  }, [id, sales, trip]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
@@ -41,17 +56,61 @@ function SalePage() {
     await getSales();
   };
 
+  const calculateTotalSum = (sales) => {
+    return sales.reduce((acc, sale) => acc + sale.total, 0);
+  };
+
+  const calculateBalance = (income, expenses) => {
+    return income - expenses;
+  };
+
+  const updateTripIncome = async (totalIncome, expenses) => {
+    if (trip) {
+      const updatedTrip = {
+        ...trip,
+        income: totalIncome,
+        balance: calculateBalance(totalIncome, expenses),
+      };
+      await updateTrip(trip._id, updatedTrip);
+      setTrip(updatedTrip);
+    }
+  };
+
   return (
     <div>
       <h1 className="text-center text-3xl">Detalles</h1>
-      <div className="flex justify-center mt-3 mb-2">
+      {trip && (
+        <div className="grid grid-cols-2 mb-4">
+          <p>
+            <strong>Ingresos:</strong> ${trip.income}
+          </p>
+          <p>
+            <strong>Egresos:</strong> ${trip.expenses}
+          </p>
+          <p>
+            <strong>Balance:</strong> ${trip.balance}
+          </p>
+          <p>
+            <strong>Fecha: </strong> {formatDate(trip.createdAt)}
+          </p>
+        </div>
+      )}
+      <div className="flex gap-x-10 justify-center mt-3 mb-2">
         <button
-          className="bg-slate-200 rounded-lg p-4 flex flex-col items-center"
+          className="bg-slate-200 rounded-lg p-4 flex flex-col items-center w-24"
           onClick={openModal}
         >
           <FiPlusCircle className="text-3xl" />
           <p>Agregar</p>
         </button>
+        <Link
+          to={trip ? `/bills/${trip._id}` : "#"}
+          className="bg-slate-200 rounded-lg p-4 flex flex-col items-center w-24"
+          onClick={openModal}
+        >
+          <GoAlert className="text-3xl" />
+          <p>Gastos</p>
+        </Link>
       </div>
       {loading ? (
         <div className="flex h-[calc(100vh-400px)] items-center justify-center">

@@ -1,6 +1,7 @@
-import { FaPhoneVolume } from "react-icons/fa6";
-import { GrUpdate } from "react-icons/gr";
-import { MdDelete } from "react-icons/md";
+import { MdPhoneForwarded } from "react-icons/md";
+import { GrDocumentUpdate } from "react-icons/gr";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaWhatsapp } from "react-icons/fa";
 import { useService } from "../context/ServiceContext";
 
 function ClientCard({ client, onUpdate }) {
@@ -10,40 +11,44 @@ function ClientCard({ client, onUpdate }) {
     await deleteClient(id);
     await getClients();
   };
-
-  const handleCall = () => {
-    if (client.phoneNumber) {
-      window.location.href = `tel:${client.phoneNumber}`;
-    } else {
-      console.error("No valido");
-    }
-  };
   return (
-    <div className="bg-slate-200 my-2 rounded-lg">
-      <div className="bg-slate-300 rounded-t-lg">
-        <div className="flex justify-evenly p-2">
-          <h2>{client.firstName}</h2>
-          <h2>{client.lastName}</h2>
+    <div className="bg-slate-100 my-2 rounded-lg">
+      <div className="text-white bg-blue-500 rounded-t-lg py-2">
+        <div className="grid grid-cols-1 px-5">
+          <p>Nombre: {client.firstName}</p>
+          <p>Apodo: {client.nickName}</p>
+          <p>Direccion: {client.address}</p>
         </div>
-        <p className="text-center">{client.address}</p>
       </div>
-      <div className="flex justify-around px-4 py-6">
-        <button className="flex flex-col items-center" onClick={handleCall}>
-          <FaPhoneVolume className="text-2xl" />
-          <p>Llamar</p>
-        </button>
+      <div className="flex justify-evenly py-4">
+        <a
+          href={`tel:${client.phoneNumber}`}
+          target="_blank"
+          className="flex flex-col items-center"
+        >
+          <MdPhoneForwarded className="text-2xl" />
+          LLamar
+        </a>
+        <a
+          href={`https://wa.me/${client.phoneNumber}`}
+          target="_blank"
+          className="flex flex-col items-center"
+        >
+          <FaWhatsapp className="text-2xl" />
+          Whatsapp
+        </a>
         <button
           className="flex flex-col items-center"
           onClick={() => onUpdate(client)}
         >
-          <GrUpdate className="text-2xl" />
+          <GrDocumentUpdate className="text-2xl" />
           <p>Actualizar</p>
         </button>
         <button
           className="flex flex-col items-center"
           onClick={() => handleDelete(client._id)}
         >
-          <MdDelete className="text-2xl" />
+          <RiDeleteBin6Line className="text-2xl" />
           <p>Borrar</p>
         </button>
       </div>
