@@ -41,7 +41,7 @@ function BillModal({ tripId, isOpen, onClose, bill }) {
   if (!isOpen) return null;
   return (
     <div className="px-2 fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-      <div className="bg-slate-100 w-full p-6 rounded-lg shadow-lg">
+      <div className="bg-slate-100 w-full md:max-w-[512px] p-6 rounded-lg shadow-lg">
         <h1 className="text-center text-2xl mb-2">
           {bill ? "Actualizar Gasto" : "Gasto Nuevo"}
         </h1>

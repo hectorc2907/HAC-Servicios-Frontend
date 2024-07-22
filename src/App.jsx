@@ -18,7 +18,7 @@ export function App() {
       <ServiceProvider>
         <BrowserRouter>
           <Navbar />
-          <main className="container mx-auto px-10">
+          <main className="container mx-auto px-10 max-w-[1024px]">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/register" element={<RegisterPage />} />
