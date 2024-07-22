@@ -27,8 +27,8 @@ export function App() {
                 <Route path="/admin" element={<AdminMainPage />} />
                 <Route path="/trips" element={<TripPage />} />
                 <Route path="/sale/:id" element={<SalePage />} />
+                <Route path="/bills/:id" element={<BillsPage />} />
                 <Route path="/client" element={<ClientPage />} />
-                <Route path="/bills" element={<BillsPage />} />
               </Route>
             </Routes>
           </main>
