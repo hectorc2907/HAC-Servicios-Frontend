@@ -3,6 +3,8 @@ import { GrDocumentUpdate } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaWhatsapp } from "react-icons/fa";
 import { useService } from "../context/ServiceContext";
+import Swal from "sweetalert2";
+
 
 function ClientCard({ client, onUpdate }) {
   const { getClients, deleteClient } = useService();

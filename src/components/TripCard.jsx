@@ -13,7 +13,7 @@ function TripCard({ trip, onUpdate }) {
   const handleDelete = async (id) => {
     Swal.fire({
       title: "¿Estás seguro de que deseas borrar el viaje?",
-      text: "¡No podrás revertir esto!",
+      text: "¡Esto borrara las ventas y gastos relacionados!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#E74C3C",

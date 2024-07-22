@@ -1,6 +1,8 @@
 import { useService } from "../context/ServiceContext";
 import { GrDocumentUpdate } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import Swal from "sweetalert2";
+
 
 function BillCard({ bill, onUpdate }) {
   const { getBills, deleteBill } = useService();

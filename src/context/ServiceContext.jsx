@@ -123,7 +123,11 @@ export function ServiceProvider({ children }) {
   const deleteTrip = async (id) => {
     try {
       const res = await deleteTripRequest(id);
-      if (res.status === 204) setTrips(trips);
+      if (res.status === 200) {
+        // Asegúrate de que el estado esperado es 200
+        // Actualiza el estado después de la eliminación
+        setTrips((prevTrips) => prevTrips.filter((trip) => trip._id !== id));
+      }
     } catch (error) {
       console.error(error);
     }
