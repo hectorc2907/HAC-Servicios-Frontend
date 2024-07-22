@@ -14,6 +14,7 @@ function RegisterPage() {
 
   const onSubmit = handleSubmit(async (values) => {
     signup(values);
+    navigate("/login");
   });
 
   useEffect(() => {
