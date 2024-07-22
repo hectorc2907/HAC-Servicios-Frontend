@@ -142,7 +142,7 @@ function SalePage() {
           No hay Ventas
         </h1>
       ) : (
-        <ul>
+        <ul className="grid grid-cols-1 md:grid-cols-2 md:gap-10">
           {filteredSales.map((sale) => (
             <SaleCard key={sale._id} sale={sale} onUpdate={handleUpdate} />
           ))}

@@ -55,11 +55,11 @@ function TripPage() {
           No hay Viajes
         </h1>
       ) : (
-        <>
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-10">
           {sortedTrips.map((trip) => (
             <TripCard key={trip._id} trip={trip} onUpdate={handleUpdate} />
           ))}
-        </>
+        </div>
       )}
       <TripModal isOpen={isModelOpen} onClose={handleModalClose} trip={selectedTrip} />
     </div>
