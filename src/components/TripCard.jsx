@@ -33,6 +33,8 @@ function TripCard({ trip }) {
       <div className="bg-blue-500 rounded-t-lg py-2">
         <div className="text-white flex flex-col px-2 py-4 gap-y-2">
           <div className="grid grid-cols-2">
+            <p className="ps-3">Kilos: {trip.kgTotal}Kg</p>
+            <p>Vendidos: {trip.kgSold}Kg</p>
             <p className="ps-3">Ingresos: ${trip.income}</p>
             <p>Egresos: ${trip.expenses}</p>
             <p className="ps-3">Balance: ${trip.balance}</p>
