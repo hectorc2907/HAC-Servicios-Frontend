@@ -36,6 +36,9 @@ function TripCard({ trip, onUpdate }) {
           <div className="grid grid-cols-2">
             <p className="ps-3">Kilos: {trip.kgTotal}Kg</p>
             <p>Vendidos: {trip.kgSold}Kg</p>
+            <p className="ps-3">Restantes: {trip.kgDif}Kg</p>
+          </div>
+          <div className="grid grid-cols-2">
             <p className="ps-3">Ingresos: ${trip.income}</p>
             <p>Egresos: ${trip.expenses}</p>
             <p className="ps-3">Balance: ${trip.balance}</p>

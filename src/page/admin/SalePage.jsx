@@ -31,7 +31,9 @@ function SalePage() {
 
   useEffect(() => {
     if (id && sales) {
-      const filtered = sales.filter((sale) => sale.trip && sale.trip._id === id);
+      const filtered = sales.filter(
+        (sale) => sale.trip && sale.trip._id === id
+      );
       setFilteredSales(filtered);
       const totalIncome = calculateTotalSum(filtered, "total");
       const totalKgSold = calculateTotalSum(filtered, "quantity");
@@ -39,7 +41,7 @@ function SalePage() {
         trip &&
         (totalIncome !== trip.income || totalKgSold !== trip.kgSold)
       ) {
-        updateTripIncome(totalIncome, trip.expenses, totalKgSold);
+        updateTripIncome(totalIncome, trip.expenses, totalKgSold, trip.kgTotal);
       }
     }
   }, [id, sales, trip]);
@@ -68,13 +70,14 @@ function SalePage() {
     return income - expenses;
   };
 
-  const updateTripIncome = async (totalIncome, expenses, kgSold) => {
+  const updateTripIncome = async (totalIncome, expenses, kgSold, kgTotal) => {
     if (trip) {
       const updatedTrip = {
         ...trip,
         income: totalIncome,
         balance: calculateBalance(totalIncome, expenses),
         kgSold: kgSold,
+        kgDif: kgTotal - kgSold,
       };
       await updateTrip(trip._id, updatedTrip);
       setTrip(updatedTrip);
@@ -85,20 +88,33 @@ function SalePage() {
     <div>
       <h1 className="text-center text-3xl">Detalles</h1>
       {trip && (
-        <div className="grid grid-cols-2 mb-4">
-          <p>
-            <strong>Ingresos:</strong> ${trip.income}
-          </p>
-          <p>
-            <strong>Egresos:</strong> ${trip.expenses}
-          </p>
-          <p>
-            <strong>Balance:</strong> ${trip.balance}
-          </p>
-          <p>
-            <strong>Fecha: </strong> {formatDate(trip.createdAt)}
-          </p>
-        </div>
+        <>
+          <div className="grid grid-cols-2 mb-4">
+            <p>
+              <strong>Kilos Totales:</strong> {trip.kgTotal}Kg
+            </p>
+            <p>
+              <strong>Kilos Vendidos:</strong> {trip.kgSold}Kg
+            </p>
+            <p>
+              <strong>Restantes:</strong> {trip.kgDif}Kg
+            </p>
+          </div>
+          <div className="grid grid-cols-2 mb-4">
+            <p>
+              <strong>Ingresos:</strong> ${trip.income}
+            </p>
+            <p>
+              <strong>Egresos:</strong> ${trip.expenses}
+            </p>
+            <p>
+              <strong>Balance:</strong> ${trip.balance}
+            </p>
+            <p>
+              <strong>Fecha: </strong> {formatDate(trip.createdAt)}
+            </p>
+          </div>
+        </>
       )}
       <div className="flex gap-x-10 justify-center mt-3 mb-2">
         <button
