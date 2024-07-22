@@ -4,14 +4,29 @@ import { MdPhoneForwarded } from "react-icons/md";
 import { GrDocumentUpdate } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { getClientPhoneNumber } from "../utils/phoneNumber";
+import Swal from "sweetalert2";
 
 function SaleCard({ sale, onUpdate }) {
   const { getSales, deleteSale, clients } = useService();
   const phoneNumber = getClientPhoneNumber(clients, sale.customer);
 
   const handleDelete = async (id) => {
-    await deleteSale(id);
-    await getSales();
+    Swal.fire({
+      title: "¿Estás seguro de que deseas borrar la venta?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#E74C3C",
+      cancelButtonColor: "#2ECC71",
+      confirmButtonText: "Borrar",
+      cancelButtonText: "Cancelar",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteSale(id);
+        await getSales();
+        Swal.fire("¡Borrado!", "La venta ha sido borrado.", "success");
+      }
+    });
   };
   return (
     <>
