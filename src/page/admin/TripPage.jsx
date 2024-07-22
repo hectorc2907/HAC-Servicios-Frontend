@@ -24,8 +24,8 @@ function TripPage() {
     setSelectedTrip(null);
   };
 
-  const handleUpdate = (sale) => {
-    setSelectedTrip(sale);
+  const handleUpdate = (trip) => {
+    setSelectedTrip(trip);
     openModal();
   };
 
@@ -61,7 +61,7 @@ function TripPage() {
           ))}
         </>
       )}
-      <TripModal isOpen={isModelOpen} onClose={handleModalClose} />
+      <TripModal isOpen={isModelOpen} onClose={handleModalClose} trip={selectedTrip} />
     </div>
   );
 }

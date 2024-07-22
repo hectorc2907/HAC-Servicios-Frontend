@@ -7,7 +7,6 @@ function TripModal({ isOpen, onClose, trip }) {
     register,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors },
   } = useForm();
   const { getTrips, createTrip, updateTrip } = useService();

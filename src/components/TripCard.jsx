@@ -1,12 +1,13 @@
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { GoBriefcase } from "react-icons/go";
 import { GoAlert } from "react-icons/go";
+import { GrDocumentUpdate } from "react-icons/gr";
 import { useService } from "../context/ServiceContext";
 import { Link } from "react-router-dom";
 import { formatDate } from "../utils/dateFormated";
 import Swal from "sweetalert2";
 
-function TripCard({ trip }) {
+function TripCard({ trip, onUpdate }) {
   const { deleteTrip, getTrips } = useService();
 
   const handleDelete = async (id) => {
@@ -51,6 +52,13 @@ function TripCard({ trip }) {
           <GoAlert className="text-2xl" />
           <p>Gastos</p>
         </Link>
+        <button
+          className="flex flex-col items-center"
+          onClick={() => onUpdate(trip)}
+        >
+          <GrDocumentUpdate className="text-2xl" />
+          <p>Actualizar</p>
+        </button>
         <button
           className="flex flex-col items-center"
           onClick={() => handleDelete(trip._id)}
