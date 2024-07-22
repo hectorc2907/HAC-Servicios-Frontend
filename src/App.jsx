@@ -10,6 +10,7 @@ import AdminMainPage from "./page/admin/AdminMainPage";
 import TripPage from "./page/admin/TripPage";
 import SalePage from "./page/admin/SalePage";
 import ClientPage from "./page/admin/ClientPage";
+import BillsPage from "./page/admin/BillsPage";
 
 export function App() {
   return (
@@ -27,6 +28,7 @@ export function App() {
                 <Route path="/trips" element={<TripPage />} />
                 <Route path="/sale/:id" element={<SalePage />} />
                 <Route path="/client" element={<ClientPage />} />
+                <Route path="/bills" element={<BillsPage />} />
               </Route>
             </Routes>
           </main>
