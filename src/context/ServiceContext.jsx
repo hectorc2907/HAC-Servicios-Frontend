@@ -20,6 +20,13 @@ import {
   updateSaleRequest,
   deleteSaleRequest,
 } from "../api/sale";
+import {
+  getBillRequest,
+  getBillsRequest,
+  createBillRequest,
+  updateBillRequest,
+  deleteBillRequest,
+} from "../api/bills";
 
 const ServiceContext = createContext();
 
@@ -35,6 +42,7 @@ export function ServiceProvider({ children }) {
   const [clients, setClients] = useState([]);
   const [trips, setTrips] = useState([]);
   const [sales, setSales] = useState([]);
+  const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getClients = async () => {
@@ -162,6 +170,48 @@ export function ServiceProvider({ children }) {
       console.error(error);
     }
   };
+
+  const getBills = async () => {
+    setLoading(true);
+    try {
+      const res = await getBillsRequest();
+      setBills(res.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getBill = async (id) => {
+    try {
+      const res = await getBillRequest(id);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const createBill = async (trip) => {
+    await createBillRequest(trip);
+  };
+
+  const updateBill = async (id, bill) => {
+    try {
+      await updateBillRequest(id, bill);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteBill = async (id) => {
+    try {
+      const res = await deleteBillRequest(id);
+      if (res.status === 204) setBills(bills);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <ServiceContext.Provider
       value={{
@@ -183,6 +233,12 @@ export function ServiceProvider({ children }) {
         createSale,
         updateSale,
         deleteSale,
+        bills,
+        getBills,
+        getBill,
+        createBill,
+        updateBill,
+        deleteBill,
         loading,
       }}
     >
