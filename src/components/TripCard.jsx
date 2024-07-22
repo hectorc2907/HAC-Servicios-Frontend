@@ -4,13 +4,28 @@ import { GoAlert } from "react-icons/go";
 import { useService } from "../context/ServiceContext";
 import { Link } from "react-router-dom";
 import { formatDate } from "../utils/dateFormated";
+import Swal from "sweetalert2";
 
 function TripCard({ trip }) {
   const { deleteTrip, getTrips } = useService();
 
   const handleDelete = async (id) => {
-    await deleteTrip(id);
-    await getTrips();
+    Swal.fire({
+      title: "¿Estás seguro de que deseas borrar el viaje?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#E74C3C",
+      cancelButtonColor: "#2ECC71",
+      confirmButtonText: "Borrar",
+      cancelButtonText: "Cancelar",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteTrip(id);
+        await getTrips();
+        Swal.fire("¡Borrado!", "El viaje ha sido borrado.", "success");
+      }
+    });
   };
 
   return (
