@@ -51,7 +51,7 @@ function ClientPage() {
           No hay clientes
         </h1>
       ) : (
-        <>
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-10">
           {clients.map((client) => (
             <ClientCard
               client={client}
@@ -59,7 +59,7 @@ function ClientPage() {
               onUpdate={handleUpdate}
             />
           ))}
-        </>
+        </div>
       )}
       <ClientModal
         isOpen={isModelOpen}

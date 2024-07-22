@@ -120,7 +120,7 @@ function BillsPage() {
           No hay Gastos
         </h1>
       ) : (
-        <ul>
+        <ul className="grid grid-cols-1 md:grid-cols-2 md:gap-10">
           {filteredBills.map((bill) => (
             <BillCard key={bill._id} bill={bill} onUpdate={handleUpdate} />
           ))}
