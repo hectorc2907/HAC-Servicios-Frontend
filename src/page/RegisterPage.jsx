@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function RegisterPage() {
   const {
@@ -13,8 +14,21 @@ function RegisterPage() {
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (values) => {
-    signup(values);
-    navigate("/login");
+    const registerComplete = await signup(values);
+    if (registerComplete.isOk) {
+      Swal.fire({
+        title: "Registro Completado!",
+        text: "Inicia Sesion!",
+        icon: "success",
+      });
+      navigate("/login");
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: "No se pudo completar el registro.",
+        icon: "error",
+      });
+    }
   });
 
   useEffect(() => {

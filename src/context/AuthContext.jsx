@@ -27,8 +27,10 @@ export const AuthProvider = ({ children }) => {
   const signup = async (user) => {
     try {
       await registerRequest(user);
+      return { isOk: true };
     } catch (error) {
       setErrors(error.response.data);
+      return { isOk: false };
     }
   };
 
