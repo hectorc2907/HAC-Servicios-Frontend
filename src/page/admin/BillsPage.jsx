@@ -31,7 +31,7 @@ function BillsPage() {
 
   useEffect(() => {
     if (id && bills) {
-      const filtered = bills.filter((bill) => bill.trip._id === id);
+      const filtered = bills.filter((bill) => bill.trip && bill.trip._id === id);
       setFilteredBills(filtered);
       const totalExpenses = calculateTotalSum(filtered);
       if (trip && totalExpenses !== trip.expenses) {

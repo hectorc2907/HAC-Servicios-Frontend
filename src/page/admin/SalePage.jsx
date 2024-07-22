@@ -31,11 +31,15 @@ function SalePage() {
 
   useEffect(() => {
     if (id && sales) {
-      const filtered = sales.filter((sale) => sale.trip._id === id);
+      const filtered = sales.filter((sale) => sale.trip && sale.trip._id === id);
       setFilteredSales(filtered);
-      const totalIncome = calculateTotalSum(filtered);
-      if (trip && totalIncome !== trip.income) {
-        updateTripIncome(totalIncome, trip.expenses);
+      const totalIncome = calculateTotalSum(filtered, "total");
+      const totalKgSold = calculateTotalSum(filtered, "quantity");
+      if (
+        trip &&
+        (totalIncome !== trip.income || totalKgSold !== trip.kgSold)
+      ) {
+        updateTripIncome(totalIncome, trip.expenses, totalKgSold);
       }
     }
   }, [id, sales, trip]);
@@ -56,20 +60,21 @@ function SalePage() {
     await getSales();
   };
 
-  const calculateTotalSum = (sales) => {
-    return sales.reduce((acc, sale) => acc + sale.total, 0);
+  const calculateTotalSum = (sales, key) => {
+    return sales.reduce((acc, sale) => acc + sale[key], 0);
   };
 
   const calculateBalance = (income, expenses) => {
     return income - expenses;
   };
 
-  const updateTripIncome = async (totalIncome, expenses) => {
+  const updateTripIncome = async (totalIncome, expenses, kgSold) => {
     if (trip) {
       const updatedTrip = {
         ...trip,
         income: totalIncome,
         balance: calculateBalance(totalIncome, expenses),
+        kgSold: kgSold,
       };
       await updateTrip(trip._id, updatedTrip);
       setTrip(updatedTrip);
