@@ -22,40 +22,40 @@ function BillCard({ bill, onUpdate }) {
         Swal.fire("¡Borrado!", "El gasto ha sido borrado.", "success");
       }
     });
-    return (
-      <>
-        <div className="bg-slate-100 my-2 rounded-md">
-          <div className={`bg-blue-500 text-white rounded-t-lg py-2`}>
-            <div className="grid grid-cols-1">
-              <p className="ps-3">Tipo de Gasto: {bill.types}</p>
-              <p className="ps-3">Valor: ${bill.value}</p>
-              {bill.description === "" ? (
-                ""
-              ) : (
-                <p className="ps-3">Detalles: {bill.description}</p>
-              )}
-            </div>
-          </div>
-          <div className="flex justify-evenly py-4">
-            <button
-              className="flex flex-col items-center"
-              onClick={() => onUpdate(bill)}
-            >
-              <GrDocumentUpdate className="text-2xl" />
-              <p>Actualizar</p>
-            </button>
-            <button
-              className="flex flex-col items-center"
-              onClick={() => handleDelete(bill._id)}
-            >
-              <RiDeleteBin6Line className="text-2xl" />
-              <p>Borrar</p>
-            </button>
+  };
+  return (
+    <>
+      <div className="bg-slate-100 my-2 rounded-md">
+        <div className={`bg-blue-500 text-white rounded-t-lg py-2`}>
+          <div className="grid grid-cols-1">
+            <p className="ps-3">Tipo de Gasto: {bill.types}</p>
+            <p className="ps-3">Valor: ${bill.value}</p>
+            {bill.description === "" ? (
+              ""
+            ) : (
+              <p className="ps-3">Detalles: {bill.description}</p>
+            )}
           </div>
         </div>
-      </>
-    );
-  };
+        <div className="flex justify-evenly py-4">
+          <button
+            className="flex flex-col items-center"
+            onClick={() => onUpdate(bill)}
+          >
+            <GrDocumentUpdate className="text-2xl" />
+            <p>Actualizar</p>
+          </button>
+          <button
+            className="flex flex-col items-center"
+            onClick={() => handleDelete(bill._id)}
+          >
+            <RiDeleteBin6Line className="text-2xl" />
+            <p>Borrar</p>
+          </button>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default BillCard;
